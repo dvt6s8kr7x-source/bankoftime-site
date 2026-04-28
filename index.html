@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时间银行 | 存储时间·交换温暖 — BankOfTime.cn</title>
+    <meta name="description" content="时间银行是一个社区互助平台，让每个人的时间都能产生价值。提供服务赚取时间币，需要帮助时用时间币兑换服务。">
+    <meta name="keywords" content="时间银行,互助平台,社区服务,志愿服务,时间交换,BankOfTime">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⏳</text></svg>">
+    <style>
+        /* ===== Reset & Base ===== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --coral: #E8614D;
+            --coral-light: #FF8A7A;
+            --coral-dark: #C44535;
+            --sand: #F5E6D3;
+            --sand-light: #FFF8F0;
+            --cream: #FFFDF9;
+            --charcoal: #2A2A2A;
+            --graphite: #4A4A4A;
+            --silver: #8A8A8A;
+            --mint: #5EC4AC;
+            --mint-light: #E8F8F4;
+            --gold: #D4A853;
+            --gold-light: #FFF3DC;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, "PingFang SC", "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+            color: var(--charcoal);
+            background: var(--cream);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* ===== Navigation ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(255,253,249,0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--charcoal);
+        }
+
+        .nav-logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--coral), var(--coral-light));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+        }
+
+        .nav-logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-logo-text span {
+            color: var(--coral);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--graphite);
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--coral); }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--coral), var(--coral-light));
+            color: white !important;
+            padding: 10px 24px;
+            border-radius: 100px;
+            font-weight: 600 !important;
+            transition: transform 0.2s, box-shadow 0.2s !important;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(232,97,77,0.4);
+        }
+
+        .nav-mobile-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--charcoal);
+        }
+
+        /* ===== Hero ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 24px 80px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(170deg, var(--cream) 0%, var(--sand-light) 50%, var(--sand) 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(232,97,77,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(94,196,172,0.06) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 720px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            border: 1px solid rgba(232,97,77,0.15);
+            border-radius: 100px;
+            padding: 8px 20px;
+            font-size: 14px;
+            color: var(--coral);
+            font-weight: 600;
+            margin-bottom: 32px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 7vw, 72px);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            margin-bottom: 24px;
+            color: var(--charcoal);
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--coral), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--graphite);
+            line-height: 1.8;
+            margin-bottom: 40px;
+            max-width: 560px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--coral), var(--coral-light));
+            color: white;
+            padding: 16px 36px;
+            border-radius: 100px;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(232,97,77,0.35);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--coral);
+            padding: 16px 36px;
+            border-radius: 100px;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            border: 2px solid var(--coral);
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            background: var(--coral);
+            color: white;
+        }
+
+        /* ===== Stats ===== */
+        .stats {
+            padding: 0 24px;
+            margin-top: -40px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .stats-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.06);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--coral);
+            letter-spacing: -1px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--silver);
+            margin-top: 4px;
+        }
+
+        /* ===== Sections Common ===== */
+        section {
+            padding: 100px 24px;
+        }
+
+        .section-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: var(--mint-light);
+            color: var(--mint);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: clamp(28px, 4vw, 42px);
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .section-desc {
+            font-size: 17px;
+            color: var(--graphite);
+            max-width: 560px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* ===== How It Works ===== */
+        .how-it-works {
+            background: var(--sand-light);
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            position: relative;
+        }
+
+        .steps::before {
+            content: '';
+            position: absolute;
+            top: 50px;
+            left: 16.67%;
+            right: 16.67%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--coral), var(--mint));
+            opacity: 0.3;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin: 0 auto 24px;
+            position: relative;
+        }
+
+        .step:nth-child(1) .step-icon { background: linear-gradient(135deg, #FFF0ED, #FFE0DB); }
+        .step:nth-child(2) .step-icon { background: linear-gradient(135deg, #E8F8F4, #D0F0E4); }
+        .step:nth-child(3) .step-icon { background: linear-gradient(135deg, #FFF3DC, #FFE8B8); }
+
+        .step-number {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 28px;
+            height: 28px;
+            background: var(--coral);
+            color: white;
+            border-radius: 50%;
+            font-size: 14px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .step p {
+            font-size: 15px;
+            color: var(--graphite);
+            line-height: 1.7;
+        }
+
+        /* ===== Services ===== */
+        .services {
+            background: var(--cream);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 20px;
+            padding: 36px 28px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+        }
+
+        .service-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .service-card:nth-child(1) .service-icon { background: #FFF0ED; }
+        .service-card:nth-child(2) .service-icon { background: #E8F8F4; }
+        .service-card:nth-child(3) .service-icon { background: #FFF3DC; }
+        .service-card:nth-child(4) .service-icon { background: #EDE8F5; }
+        .service-card:nth-child(5) .service-icon { background: #E8F0FF; }
+
+        .service-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .service-card p {
+            font-size: 14px;
+            color: var(--graphite);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .service-price {
+            display: inline-block;
+            background: var(--sand);
+            color: var(--coral-dark);
+            padding: 4px 14px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        /* ===== Testimonials ===== */
+        .testimonials {
+            background: linear-gradient(170deg, var(--sand-light), var(--cream));
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 28px;
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: 20px;
+            padding: 36px;
+            border: 1px solid rgba(0,0,0,0.04);
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 16px;
+            left: 28px;
+            font-size: 60px;
+            font-weight: 800;
+            color: var(--coral);
+            opacity: 0.12;
+            line-height: 1;
+        }
+
+        .testimonial-card p {
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--graphite);
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .testimonial-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--sand), var(--coral-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .testimonial-name {
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .testimonial-meta {
+            font-size: 13px;
+            color: var(--silver);
+        }
+
+        /* ===== FAQ ===== */
+        .faq {
+            background: var(--cream);
+        }
+
+        .faq-list {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            padding: 0;
+        }
+
+        .faq-question {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 24px 0;
+            text-align: left;
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--charcoal);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: color 0.2s;
+        }
+
+        .faq-question:hover { color: var(--coral); }
+
+        .faq-toggle {
+            font-size: 24px;
+            font-weight: 300;
+            transition: transform 0.3s;
+            color: var(--silver);
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+            color: var(--coral);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            padding-bottom: 24px;
+        }
+
+        .faq-answer p {
+            font-size: 15px;
+            color: var(--graphite);
+            line-height: 1.8;
+        }
+
+        /* ===== CTA ===== */
+        .cta {
+            background: linear-gradient(135deg, var(--coral), var(--coral-dark));
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            border-radius: 50%;
+        }
+
+        .cta .section-title { color: white; }
+        .cta .section-desc { color: rgba(255,255,255,0.85); }
+
+        .cta .btn-primary {
+            background: white;
+            color: var(--coral);
+        }
+
+        .cta .btn-primary:hover {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+
+        /* ===== Footer ===== */
+        footer {
+            background: var(--charcoal);
+            color: rgba(255,255,255,0.7);
+            padding: 60px 24px 40px;
+        }
+
+        .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 48px;
+        }
+
+        .footer-brand h3 {
+            color: white;
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .footer-brand h3 span { color: var(--coral-light); }
+
+        .footer-brand p {
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .footer-col h4 {
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .footer-col a {
+            display: block;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 14px;
+            padding: 4px 0;
+            transition: color 0.2s;
+        }
+
+        .footer-col a:hover { color: white; }
+
+        .footer-bottom {
+            max-width: 1100px;
+            margin: 40px auto 0;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .footer-bottom a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+        }
+
+        .footer-bottom a:hover { color: white; }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .nav-mobile-btn { display: block; }
+
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 24px;
+                gap: 20px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+
+            .stats-inner {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 24px;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .steps::before { display: none; }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+        }
+
+        /* ===== Animations ===== */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== Form Modal ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 24px;
+            padding: 48px;
+            max-width: 480px;
+            width: 100%;
+            position: relative;
+        }
+
+        .modal h2 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .modal p {
+            color: var(--graphite);
+            font-size: 14px;
+            margin-bottom: 28px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--silver);
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover { color: var(--charcoal); }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--charcoal);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid rgba(0,0,0,0.08);
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--coral);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--coral), var(--coral-light));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(232,97,77,0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo">
+                <div class="nav-logo-icon">⏳</div>
+                <div class="nav-logo-text">时间<span>银行</span></div>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#how">运作方式</a></li>
+                <li><a href="#services">服务分类</a></li>
+                <li><a href="#stories">用户故事</a></li>
+                <li><a href="#faq">常见问题</a></li>
+                <li><a href="#join" class="nav-cta">立即加入</a></li>
+            </ul>
+            <button class="nav-mobile-btn" id="mobileBtn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content fade-up">
+            <div class="hero-badge">🌱 社区互助新方式</div>
+            <h1>存储时间<br><span class="highlight">交换温暖</span></h1>
+            <p>时间银行是一个社区互助平台。用你的一技之长服务他人，赚取时间币；需要帮助时，用时间币兑换他人的服务。每一分钟都值得被珍惜。</p>
+            <div class="hero-buttons">
+                <a href="#join" class="btn-primary" onclick="openModal('provide')">我要提供服务</a>
+                <a href="#join" class="btn-secondary" onclick="openModal('need')">我需要帮助</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <div class="stats">
+        <div class="stats-inner fade-up">
+            <div class="stat-item">
+                <div class="stat-number">1,000+</div>
+                <div class="stat-label">注册储户</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">5,000+</div>
+                <div class="stat-label">服务完成</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">10,000+</div>
+                <div class="stat-label">时间币流通</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">98%</div>
+                <div class="stat-label">满意评价</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how">
+        <div class="section-inner">
+            <div class="section-header fade-up">
+                <div class="section-tag">运作方式</div>
+                <h2 class="section-title">三步开启你的时间账户</h2>
+                <p class="section-desc">像银行存钱一样存储时间，用时间币兑换你需要的服务</p>
+            </div>
+            <div class="steps">
+                <div class="step fade-up">
+                    <div class="step-icon">
+                        📝
+                        <span class="step-number">1</span>
+                    </div>
+                    <h3>注册开户</h3>
+                    <p>成为时间银行储户，创建你的服务档案和技能标签</p>
+                </div>
+                <div class="step fade-up">
+                    <div class="step-icon">
+                        ⏱️
+                        <span class="step-number">2</span>
+                    </div>
+                    <h3>存储时间</h3>
+                    <p>用你的技能和时间服务他人，每一小时赚取一枚时间币</p>
+                </div>
+                <div class="step fade-up">
+                    <div class="step-icon">
+                        🤝
+                        <span class="step-number">3</span>
+                    </div>
+                    <h3>支取温暖</h3>
+                    <p>需要帮助时，用时间币兑换他人的服务，让温暖流转</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="services" id="services">
+        <div class="section-inner">
+            <div class="section-header fade-up">
+                <div class="section-tag">服务分类</div>
+                <h2 class="section-title">你可以提供或获取这些服务</h2>
+                <p class="section-desc">五大类社区互助服务，总有你需要或擅长的</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card fade-up">
+                    <div class="service-icon">🗣️</div>
+                    <h3>陪伴聊天</h3>
+                    <p>聊天解闷、散步陪伴、读书读报，让孤独不再</p>
+                    <span class="service-price">1 时间币 / 小时</span>
+                </div>
+                <div class="service-card fade-up">
+                    <div class="service-icon">🏠</div>
+                    <h3>家政服务</h3>
+                    <p>保洁打扫、做饭、购物代办，让生活更轻松</p>
+                    <span class="service-price">2 时间币 / 小时</span>
+                </div>
+                <div class="service-card fade-up">
+                    <div class="service-icon">📚</div>
+                    <h3>技能培训</h3>
+                    <p>教用手机、学英语、乐器入门，分享你的知识</p>
+                    <span class="service-price">3 时间币 / 小时</span>
+                </div>
+                <div class="service-card fade-up">
+                    <div class="service-icon">💼</div>
+                    <h3>专业咨询</h3>
+                    <p>法律、财务、心理辅导，专业的人做专业的事</p>
+                    <span class="service-price">5 时间币 / 小时</span>
+                </div>
+                <div class="service-card fade-up">
+                    <div class="service-icon">🚗</div>
+                    <h3>跑腿代办</h3>
+                    <p>取快递、排队、接送服务，省时省心</p>
+                    <span class="service-price">1-2 时间币 / 次</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="stories">
+        <div class="section-inner">
+            <div class="section-header fade-up">
+                <div class="section-tag">用户故事</div>
+                <h2 class="section-title">他们正在体验时间的温度</h2>
+                <p class="section-desc">真实的互助故事，是时间银行最珍贵的资产</p>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card fade-up">
+                    <p>张阿姨每周来陪我聊天散步，让我不再感到孤单。时间银行让我重新感受到社区的温暖。</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">👵</div>
+                        <div>
+                            <div class="testimonial-name">李奶奶</div>
+                            <div class="testimonial-meta">78岁 · 北京</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-up">
+                    <p>用空闲时间教老人用手机，赚到的时间币周末请人帮我搬家。互帮互助的感觉真好！</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">👨</div>
+                        <div>
+                            <div class="testimonial-name">小陈</div>
+                            <div class="testimonial-meta">25岁 · 上海</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-up">
+                    <p>退休后时间很多但不知道做什么。现在每周帮邻居做饭，觉得自己还有用，特别充实。</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">👩</div>
+                        <div>
+                            <div class="testimonial-name">王阿姨</div>
+                            <div class="testimonial-meta">62岁 · 深圳</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+        <div class="section-inner">
+            <div class="section-header fade-up">
+                <div class="section-tag">常见问题</div>
+                <h2 class="section-title">你可能想了解这些</h2>
+            </div>
+            <div class="faq-list fade-up">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        什么是时间币？
+                        <span class="faq-toggle">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>时间币是时间银行内部的积分单位。提供1小时服务 = 获得1时间币。时间币仅限平台内流通，用于服务交换，不兑换现金。</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        如何保证服务质量？
+                        <span class="faq-toggle">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>每次服务完成后双方互评，建立信用体系。低评分用户将被限制使用，严重违规者将永久封号。</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        时间币可以提现吗？
+                        <span class="faq-toggle">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>不可以。时间币是互助积分，仅用于平台内服务交换，不涉及法币交易。我们相信时间的价值在于互助，而非金钱。</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        安全有保障吗？
+                        <span class="faq-toggle">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>所有用户实名认证，服务记录可追溯。首次服务建议在公共场合进行，如遇纠纷可联系平台介入处理。</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        谁可以加入？
+                        <span class="faq-toggle">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>任何愿意付出时间和接受帮助的人都可以加入。目前主要面向社区居民，尤其是退休长者、大学生和自由职业者。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="join">
+        <div class="section-inner">
+            <div class="section-header fade-up">
+                <h2 class="section-title">准备好加入时间银行了吗？</h2>
+                <p class="section-desc">成为储户，让每一分钟都有价值</p>
+                <br>
+                <a href="#" class="btn-primary" onclick="openModal('join'); return false;">立即开户</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <h3>时间<span>银行</span></h3>
+                <p>存储时间，交换温暖。<br>让每个人的时间都能产生价值，让社区互助成为日常。</p>
+            </div>
+            <div class="footer-col">
+                <h4>关于</h4>
+                <a href="#how">运作方式</a>
+                <a href="#services">服务分类</a>
+                <a href="#stories">用户故事</a>
+                <a href="#faq">常见问题</a>
+            </div>
+            <div class="footer-col">
+                <h4>联系</h4>
+                <a href="mailto:contact@bankoftime.cn">contact@bankoftime.cn</a>
+                <a href="#">微信公众号</a>
+                <a href="#">加入社群</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 BankOfTime.cn 时间银行 · 让时间产生价值</span>
+            <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备XXXXXXXX号</a>
+        </div>
+    </footer>
+
+    <!-- Register Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <h2>开户申请</h2>
+            <p>填写基本信息，我们会在24小时内与您联系</p>
+            <form onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label>姓名</label>
+                    <input type="text" placeholder="请输入您的姓名" required>
+                </div>
+                <div class="form-group">
+                    <label>手机号</label>
+                    <input type="tel" placeholder="请输入手机号" required>
+                </div>
+                <div class="form-group">
+                    <label>我是</label>
+                    <select required>
+                        <option value="">请选择</option>
+                        <option value="provide">我想提供服务</option>
+                        <option value="need">我需要帮助</option>
+                        <option value="both">两者都有</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>一句话介绍</label>
+                    <textarea placeholder="如：退休教师、大学生、社区志愿者…"></textarea>
+                </div>
+                <button type="submit" class="form-submit">提交申请</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            nav.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Mobile menu
+        document.getElementById('mobileBtn').addEventListener('click', () => {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+
+        // FAQ accordion
+        document.querySelectorAll('.faq-question').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const item = btn.parentElement;
+                const wasActive = item.classList.contains('active');
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+                if (!wasActive) item.classList.add('active');
+            });
+        });
+
+        // Scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        // Modal
+        function openModal(type) {
+            document.getElementById('modal').classList.add('active');
+            const select = document.querySelector('.modal select');
+            if (type && select) select.value = type;
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        document.getElementById('modal').addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal-overlay')) closeModal();
+        });
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            alert('感谢您的申请！我们会在24小时内与您联系。');
+            closeModal();
+        }
+    </script>
+</body>
+</html>
